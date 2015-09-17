@@ -39,7 +39,7 @@ public class executeContent {
 		writer.write(phantomFile);
 		writer.close();
 		
-		Process process = Runtime.getRuntime().exec("U:\\GitHub\\FlashCards\\phantomjs-2.0.0-windows\\bin\\phantomjs phantomWriter.js");
+		Process process = Runtime.getRuntime().exec("U:\\GitHub\\FlashCards\\phantomjs-2.0.0-windows\\bin\\phantomjs U:\\GitHub\\FlashCards\\phantomWriter.js");
 		int exitStatus = process.waitFor();
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
