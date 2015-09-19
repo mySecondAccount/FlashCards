@@ -12,7 +12,7 @@ var fs = require('fs');
 var system = require('system'); 
 var args = system.args; 
 var output = 'pageOutput.html'; 
-page.open('https://www.studyblue.com/notes/note/n/final-exam/deck/14520416', function(status) { 
+page.open('https://www.studyblue.com/notes/note/n/chapter-1/deck/15207571', function(status) { 
 	 if (status == 'fail') { 
 		 console.log('Failed to open page.'); 
 		 phantom.exit(1); 

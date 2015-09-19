@@ -5,16 +5,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 public class executeContent {
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws IOException, InterruptedException {
-		String givenURL = "https://www.studyblue.com/notes/note/n/final-exam/deck/14520416";
+		Scanner inputURL = new Scanner(System.in);
+		System.out.println("Enter Study Blue URL: ");
+		String givenURL = inputURL.nextLine();
+		System.out.println("Please wait...");
 		
 		StringBuilder myBuilder = new StringBuilder(); 
 		myBuilder.append("function returnFrameContent(pageName){ \n"); 
@@ -58,29 +61,13 @@ public class executeContent {
 		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
 		String currentLine = null;
-		StringBuilder stringBuilder = new StringBuilder(exitStatus == 0 ? "SUCCESS:" : "ERROR:");
+		StringBuilder stringBuilder = new StringBuilder(exitStatus == 0 ? "SUCCESS" : "ERROR");
 		currentLine = bufferedReader.readLine();
 		while (currentLine != null) {
 			stringBuilder.append(currentLine);
 			currentLine = bufferedReader.readLine();
 		}
 		System.out.println(stringBuilder.toString());
-		
-		// WebClient webClient = new WebClient();
-		// HtmlPage myPage = ((HtmlPage)
-		// webClient.getPage("https://www.studyblue.com/#flashcard/view/14609350"));
-
-		// @SuppressWarnings("resource")
-		// WebClient webClient = new WebClient();
-		// String url = "https://www.studyblue.com/#flashcard/view/14609350";
-		// HtmlPage page = webClient.getPage(url);
-		// webClient.waitForBackgroundJavaScript(30 * 1000);
-
-		// String html = page.asText();
-
-		// org.jsoup.nodes.Document doc = Jsoup.parse(myPage.asText());
-		//
-		// System.out.println(doc);
 		
 		File myFile = new File("U:\\GitHub\\FlashCards\\pageOutput.html");
 		org.jsoup.nodes.Document doc = Jsoup.parse(myFile, "UTF-8");
@@ -93,7 +80,7 @@ public class executeContent {
 		String cardFront;
 		String cardBack;
 		for(int i = 0; i < front.size(); i++) {
-			cardFront = appendDQ(front.get(i).text());
+			cardFront = appendDQ(front.get(i).text().replaceAll("\"", ""));
 			cardBack = appendDQ(back.get(i).text().replaceAll("\"", ""));
 			uploadReadyWriter.write(cardFront + "," + cardBack + " \n");
 		}
