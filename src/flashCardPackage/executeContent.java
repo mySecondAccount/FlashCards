@@ -93,10 +93,13 @@ public class executeContent {
 		String cardFront;
 		String cardBack;
 		for(int i = 0; i < front.size(); i++) {
-			cardFront = front.get(i).text().replaceAll(",", "");
-			cardBack = back.get(i).text().replaceAll(",", "");
-			uploadReadyWriter.write(cardFront + ", " + cardBack + " \n");
+			cardFront = appendDQ(front.get(i).text());
+			cardBack = appendDQ(back.get(i).text().replaceAll("\"", ""));
+			uploadReadyWriter.write(cardFront + "," + cardBack + " \n");
 		}
 		uploadReadyWriter.close();
+	}
+	private static String appendDQ(String str) {
+	    return "\"" + str + "\"";
 	}
 }
